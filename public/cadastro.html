@@ -123,14 +123,18 @@ onload="listar()" -->
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-   
+    var listaestiloVar = listaestilo.value;
+    var listainstrumentoVar = listainstrumento.value;
+    
+    
     if (
       nomeVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
       confirmacaoSenhaVar == "" ||
       confirmacaoSenhaVar != senhaVar ||
-      senhaVar < 6
+      senhaVar < 6 ||
+      listaestiloVar == '#'
       
      ) {
       
@@ -154,6 +158,8 @@ onload="listar()" -->
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
+        estiloServer: listaestiloVar,
+        instrumentoServer: listainstrumentoVar
         
       }),
     })

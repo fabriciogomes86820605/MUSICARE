@@ -112,7 +112,7 @@
             descricao: form_postagem.descricao.value
         }
 
-        fetch(`/mensagens/publicar/${idUsuario}`, {
+        fetch(`/mensagem/publicar/${idUsuario}`, {
             method: "post",
             headers: {
                 "Content-Type": "application/json"
@@ -141,17 +141,18 @@
 
     }
 
-    function editar(idAviso) {
-        sessionStorage.ID_POSTAGEM_EDITANDO = idAviso;
-        console.log("cliquei em editar - " + idAviso);
-        window.alert("Você será redirecionado à página de edição do aviso de id número: " + idAviso);
-        window.location = "/dashboard/edicao-aviso.html"
+    function editar(idmensagem) {
+        sessionStorage.ID_POSTAGEM_EDITANDO = idmensagem;
+        var nome = sessionStorage.NOME_USUARIO;
+        console.log("cliquei em editar - " + idmensagem);
+        window.alert("Você será redirecionado à página de edição do mensagem de id número: " + idmensagem);
+        window.location = "/dashboard/edicao-mensagem.html"
 
     }
 
-    function deletar(idAviso) {
-        console.log("Criar função de apagar post escolhido - ID" + idAviso);
-        fetch(`/mensagens/deletar/${idAviso}`, {
+    function deletar(idmensagem) {
+        console.log("Criar função de apagar post escolhido - ID" + idmensagem);
+        fetch(`/mensagem/deletar/${idmensagem}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -172,7 +173,7 @@
     }
 
     function atualizarFeed() {
-        fetch("/mensagens/listar").then(function (resposta) {
+        fetch("/mensagem/listar").then(function (resposta) {
             if (resposta.ok) {
                 if (resposta.status == 204) {
                     var feed = document.getElementById("feed_container");
@@ -197,40 +198,27 @@
                         var spanNome = document.createElement("span");
                         var divDescricao = document.createElement("div");
                         var divButtons = document.createElement("div");
-                        var btnEditar = document.createElement("button");
                         var btnDeletar = document.createElement("button");
 
 
-                        spanID.innerHTML = "ID: <b>" + publicacao.idAviso + "</b>";
+                        spanID.innerHTML = "ID: <b>" + publicacao.idmensagem + "</b>";
                         spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
                         spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
-                        divDescricao.innerHTML = "Descrição: <b>" + publicacao.descricao + "</b>";
-                        btnEditar.innerHTML = "Editar";
-                        btnDeletar.innerHTML = "Deletar";
+                        divDescricao.innerHTML = "Mensagem: <b>" + publicacao.descricao + "</b>";
 
                         divPublicacao.className = "publicacao";
-                        spanTitulo.id = "inputNumero" + publicacao.idAviso;
+                        spanTitulo.id = "inputNumero" + publicacao.idmensagem;
                         spanNome.className = "publicacao-nome";
                         spanTitulo.className = "publicacao-titulo";
                         divDescricao.className = "publicacao-descricao";
 
                         divButtons.className = "div-buttons"
 
-                        btnEditar.className = "publicacao-btn-editar"
-                        btnEditar.id = "btnEditar" + publicacao.idAviso;
-                        btnEditar.setAttribute("onclick", `editar(${publicacao.idAviso})`);
-
-                        btnDeletar.className = "publicacao-btn-editar"
-                        btnDeletar.id = "btnDeletar" + publicacao.idAviso;
-                        btnDeletar.setAttribute("onclick", `deletar(${publicacao.idAviso})`);
-
                         divPublicacao.appendChild(spanID);
                         divPublicacao.appendChild(spanNome);
                         divPublicacao.appendChild(spanTitulo);
                         divPublicacao.appendChild(divDescricao);
                         divPublicacao.appendChild(divButtons);
-                        divButtons.appendChild(btnEditar);
-                        divButtons.appendChild(btnDeletar);
                         feed.appendChild(divPublicacao);
                     }
 

@@ -4,7 +4,7 @@ function listar() {
     console.log("ACESSEI O mensagem MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
     var instrucaoSql = `
         SELECT 
-            a.id AS idAviso,
+            a.id AS idmensagem,
             a.titulo,
             a.descricao,
             a.fk_usuario,
@@ -24,7 +24,7 @@ function pesquisarDescricao(texto) {
     console.log("ACESSEI O mensagem MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function pesquisarDescricao()");
     var instrucaoSql = `
         SELECT 
-            a.id AS idAviso,
+            a.id AS idmensagem,
             a.titulo,
             a.descricao,
             a.fk_usuario,
@@ -45,7 +45,7 @@ function listarPorUsuario(idUsuario) {
     console.log("ACESSEI O mensagem MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarPorUsuario()");
     var instrucaoSql = `
         SELECT 
-            a.id AS idAviso,
+            a.id AS idmensagem,
             a.titulo,
             a.descricao,
             a.fk_usuario,
@@ -71,19 +71,19 @@ function publicar(titulo, descricao, idUsuario) {
     return database.executar(instrucaoSql);
 }
 
-function editar(novaDescricao, idAviso) {
-    console.log("ACESSEI O mensagem MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novaDescricao, idAviso);
+function editar(novaDescricao, idmensagem) {
+    console.log("ACESSEI O mensagem MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novaDescricao, idmensagem);
     var instrucaoSql = `
-        UPDATE mensagem SET descricao = '${novaDescricao}' WHERE id = ${idAviso};
+        UPDATE mensagem SET descricao = '${novaDescricao}' WHERE id = ${idmensagem};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function deletar(idAviso) {
-    console.log("ACESSEI O mensagem MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idAviso);
+function deletar(idmensagem) {
+    console.log("ACESSEI O mensagem MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletar():", idmensagem);
     var instrucaoSql = `
-        DELETE FROM mensagem WHERE id = ${idAviso};
+        DELETE FROM mensagem WHERE id = ${idmensagem};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

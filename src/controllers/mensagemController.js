@@ -1,4 +1,4 @@
-var mensagemModel = require("../models/mensagemModel");
+var mensagemModel = require("../models/mensagemModel.js");
 
 function listar(req, res) {
     mensagemModel.listar().then(function (resultado) {
@@ -9,7 +9,7 @@ function listar(req, res) {
         }
     }).catch(function (erro) {
         console.log(erro);
-        console.log("Houve um erro ao buscar os mensagems: ", erro.sqlMessage);
+        console.log("Houve um erro ao buscar as mensagens: ", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
 }
@@ -54,7 +54,7 @@ function pesquisarDescricao(req, res) {
         ).catch(
             function (erro) {
                 console.log(erro);
-                console.log("Houve um erro ao buscar os mensagems: ", erro.sqlMessage);
+                console.log("Houve um erro ao buscar as mensagens: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
             }
         );

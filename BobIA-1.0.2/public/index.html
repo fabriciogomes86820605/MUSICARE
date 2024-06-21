@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MUSICARE | BONA_IA</title>
+
+
+<link rel="stylesheet" href="estilo.css">
+<link rel="stylesheet" href="dashboards.css" />
+<link rel="stylesheet" href="style.css" />
+<script src="../js/sessao.js"></script>
+<script src="./../js/alerta.js"></script>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+    href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+<!-- scripts do Chart.js - 2022-1 -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!--FONT AWESOME-->
+<script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+
+<html>
+
+<body style="background-color: #161618;">
+
+    <div class="janela">
+
+        <div class="header-left">
+
+            <img src="../public/logo fundo preto.png" alt="">
+            <h1>MUSICARE</h1>
+
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+
+            <a href="http://localhost:3333">
+                <h3>BONA IA</h3>
+            </a>
+
+            <a href="http://localhost:8080/dashboard/grafico.html">
+                <h3>Gráficos</h3>
+            </a>
+
+            <a href="http://localhost:8080/dashboard/shazam_teste.html">
+                <h3>Guitarra Virtual</h3>
+            </a>
+
+            <a href="http://localhost:8080/dashboard/quiz.html">
+                <h3>Quiz</h3>
+            </a>
+
+            <a href="http://localhost:8080/dashboard/mural.html">
+                <h3>Fórum</h3>
+            </a>
+
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
+            </div>
+
+        </div>
+
+        <div class="dash-right" style="font-size: x-large;">
+            <center>
+                <h1>BONA IA</h1><br>
+                <p>Bem vindo a nossa IA! <br><br>
+                    A <i><b style="color: rgb(177, 168, 99);">BONA IA</b></i>, é uma inteligência artificial que permite que você faça perguntas e tire
+                    dúvidas sobre qualquer conteúdo de música! <br><br>
+
+                    Aqui está uma série de perguntas que podem ser feitas!<br><br>
+
+                <p>Faça um resumo sobre a banda Charlie Brown JR<br>
+                    Faça um material de estudos sobre Campo Harmônico<br>
+                    Me explique como é dentro de um violão<br>
+                    Faça uma tablatura da musica boulevard of broken dreams do Green Day<br><br></p>
+          
+            </p>
+            <textarea style="width: 300px;" id="pergunta" type="text" placeholder="Digite a pergunta..."></textarea>
+            <br><br>
+            <button style="width: 100px; height: 50px;" onclick="gerarResposta()">Gerar Resposta</button><br><br>
+            <h3>Resposta da IA:</h3>
+            <div id="resposta"></div>
+            </center>
+        </div>
+
+    </div>
+</body>
+
+</html>
+
+<script>
+
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    async function gerarResposta() {
+
+
+
+        const pergunta = document.getElementById('pergunta').value;
+
+        if (pergunta == '') {
+
+            alert('Digite uma pergunta!')
+
+        } else {
+            const response = await fetch('/perguntar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ pergunta })
+            });
+
+            const data = await response.json();
+
+            resposta.style.display = 'block';
+            document.getElementById('resposta').innerText = data.resultado;
+        }
+    }
+
+    function sair() {
+
+        window.location = 'http://localhost:8080'
+
+    }
+
+</script>
